@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorrayne Mendes dos Reis | Portfólio Profissional</title>
+    <!-- Carrega o Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Importa a fonte Inter para uma aparência moderna e limpa (padrão) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        /* Importa a fonte Dancing Script para o nome da navbar */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&display=swap');
+        
+        /* Previne flash de conteúdo não estilizado */
+        html {
+            visibility: hidden;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb; /* Fundo suave, quase branco */
+            color: #1f2937; /* Cor do texto principal (cinza escuro) */
+        }
+        /* Cor de destaque suave (um teal/azul profissional) */
+        .accent-color {
+            color: #0d9488; /* Teal 600 */
+        }
+        .bg-accent {
+            background-color: #0d9488;
+        }
+        .border-accent {
+            border-color: #0d9488;
+        }
+
+        /* Fonte script para o nome da navbar */
+        .navbar-name {
+            font-family: 'Dancing Script', cursive;
+            font-weight: 700;
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+
+        /* --- CSS para o Efeito de Entrada do Site --- */
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0d9488 0%, #0891b2 50%, #0d9488 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.2s ease-out, visibility 0.2s ease-out;
+        }
+
+        .loading-screen.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Logo animado */
+        .loading-logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: logoAppear 0.4s ease-out forwards;
+        }
+
+        @keyframes logoAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Spinner de loading */
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Texto de loading */
+        .loading-text {
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.8;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Barra de progresso */
+        .progress-bar {
+            width: 300px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: white;
+            width: 0%;
+            border-radius: 2px;
+            animation: fillProgress 0.6s ease-out forwards;
+        }
+
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* Oculta o corpo no início */
+        .fade-in-body {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+        
+        /* Classe que será adicionada via JS para mostrar o conteúdo */
+        .fade-in-complete {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animação de entrada para o hero */
+        .hero-entrance {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        .hero-entrance.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animação de cortina para revelar o conteúdo */
+        .reveal-curtain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0d9488 0%, #0891b2 50%, #0d9488 100%);
+            transform: translateY(0);
+            transition: transform 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 9998;
+        }
+
+        .reveal-curtain.slide-up {
+            transform: translateY(-100%);
+        }
+
+        /* Partículas flutuantes no loading */
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 8px;
+            height: 8px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 12px;
+            height: 12px;
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(3) {
+            width: 6px;
+            height: 6px;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(4) {
+            width: 10px;
+            height: 10px;
+            left: 70%;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(5) {
+            width: 14px;
+            height: 14px;
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+        /* --- FIM CSS Efeito de Entrada --- */
+
+        /* --- CSS para Animações de Scroll dos Cards --- */
+        /* Cards de serviços - Estado inicial */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        /* Cards de serviços - Estado ativo */
+        .fade-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards de especialidades - Animação slide da esquerda */
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .slide-left.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Cards de especialidades - Animação slide da direita */
+        .slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .slide-right.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Cards de especialidades - Animação scale (zoom) */
+        .scale-up {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .scale-up.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Animação para seções inteiras */
+        .section-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .section-fade.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animações extras para melhor UX */
+        .bg-white {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animação de pulso sutil para CTAs */
+        @keyframes subtle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .animate-pulse-subtle {
+            animation: subtle-pulse 2s ease-in-out infinite;
+        }
+
+        /* Animação de entrada para títulos */
+        .title-animate {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .title-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Efeito de brilho nos cards ao aparecer */
+        @keyframes shine {
+            0% { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+            50% { box-shadow: 0 15px 35px rgba(13, 148, 136, 0.2); }
+            100% { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        }
+
+        .animate.bg-white {
+            animation: shine 1.5s ease-out;
+        }
+
+        /* Botão flutuante do WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128c7e;
+            transform: scale(1.1);
+            box-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+        }
+
+        @keyframes pulse-whatsapp {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .whatsapp-float.animate-pulse-whatsapp {
+            animation: pulse-whatsapp 2s infinite;
+        }
+
+        /* Ocultar WhatsApp flutuante em dispositivos móveis */
+        @media (max-width: 640px) {
+            .whatsapp-float {
+                display: none;
+            }
+        }
+
+        /* --- CSS para Menu Mobile --- */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu.active {
+            max-height: 300px;
+            transition: max-height 0.3s ease-in;
+        }
+
+        /* Animação para o botão hambúrguer */
+        .hamburger-container {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hamburger-line {
+            position: absolute;
+            width: 18px;
+            height: 2px;
+            background-color: currentColor;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .hamburger-line:nth-child(1) {
+            top: 6px;
+        }
+
+        .hamburger-line:nth-child(2) {
+            top: 11px;
+        }
+
+        .hamburger-line:nth-child(3) {
+            top: 16px;
+        }
+
+        .hamburger-active .hamburger-line:nth-child(1) {
+            top: 11px;
+            transform: rotate(45deg);
+        }
+
+        .hamburger-active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-active .hamburger-line:nth-child(3) {
+            top: 11px;
+            transform: rotate(-45deg);
+        }
+
+        /* --- CSS para o Efeito de Entrada dos Cartões de Serviço (Mantido para compatibilidade) --- */
+        /* Estado inicial: oculto e ligeiramente para baixo (20px) */
+        .card-enter {
+            opacity: 0;
+            transform: translateY(20px);
+            /* Define a transição para opacidade e movimento */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        /* Estado final: totalmente visível e na posição original (y=0) */
+        .card-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* --- FIM CSS Cartões --- */
+
+    </style>
+</head>
+<!-- Adicionamos a classe 'fade-in-body' ao corpo para ocultá-lo inicialmente -->
+<body id="top" class="antialiased fade-in-body">
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="floating-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="loading-logo">Lorrayne R.</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Carregando...</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- Cortina de Revelação -->
+    <div class="reveal-curtain" id="revealCurtain"></div>
+
+    <!-- Botão flutuante do WhatsApp -->
+    <a href="https://wa.me/5531994010672?text=Olá,%20Lorrayne!%20Tenho%20interesse%20em%20agendar%20uma%20consulta%20psicológica.%20Podemos%20conversar?" 
+       target="_blank" 
+       class="whatsapp-float animate-pulse-whatsapp"
+       title="Fale comigo no WhatsApp">
+        <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.568-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.451 3.488"/>
+        </svg>
+    </a>
+
+    <!-- Navbar Fixa no Topo (Responsiva) -->
+    <nav class="sticky top-0 z-10 bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Nome/Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#top" class="navbar-name accent-color hover:opacity-80 transition-opacity duration-150 cursor-pointer">Lorrayne Reis</a>
+                </div>
+                <!-- Links de Navegação (Desktop) -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#top" class="border-b-2 border-transparent hover:border-accent text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition duration-150">Inicio</a>
+                    <a href="#about" class="border-b-2 border-transparent hover:border-accent text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition duration-150">Sobre Mim</a>
+                    <a href="#skills" class="border-b-2 border-transparent hover:border-accent text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition duration-150">Serviços</a>
+                    <a href="#portfolio" class="border-b-2 border-transparent hover:border-accent text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition duration-150">Especialidades</a>
+                    <a href="#contact" class="border-b-2 border-transparent hover:border-accent text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium transition duration-150">Contato</a>
+                </div>
+                <!-- Botão Mobile Hambúrguer -->
+                <div class="flex items-center sm:hidden">
+                    <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent" aria-expanded="false">
+                        <span class="sr-only">Abrir menu principal</span>
+                        <div class="hamburger-container">
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (Inicialmente Oculto) -->
+        <div class="sm:hidden mobile-menu" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1 bg-white border-t border-gray-200">
+                <a href="#top" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-accent hover:text-accent transition duration-150">Início</a>
+                <a href="#about" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-accent hover:text-accent transition duration-150">Sobre Mim</a>
+                <a href="#skills" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-accent hover:text-accent transition duration-150">Serviços</a>
+                <a href="#portfolio" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-accent hover:text-accent transition duration-150">Especialidades</a>
+                <a href="#contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-gray-600 hover:bg-gray-50 hover:border-accent hover:text-accent transition duration-150">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+
+        <!-- Seção HERO (Destaque) -->
+        <section id="hero" class="mb-20 hero-entrance">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <!-- Texto de Apresentação -->
+                <div class="md:w-1/2 order-2 md:order-1 text-center md:text-left">
+                    <p class="text-xl font-medium text-gray-500 mb-2">Olá, eu sou a</p>
+                    <h1 class="text-5xl sm:text-6xl font-extrabold mb-4">
+                        <span class="accent-color">Lorrayne</span> Reis
+                    </h1>
+                    <!-- TÍTULO ATUALIZADO PARA PSICOLOGIA -->
+                    <h2 class="text-2xl sm:text-3xl font-light text-gray-800 mb-6">
+                        Psicóloga Clínica | Especialista em Autoconhecimento e Saúde Emocional
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg mx-auto md:mx-0">
+                        Minha paixão por entender o comportamento humano não nasceu apenas nos livros, mas na observação atenta das dinâmicas da vida real.
+                    </p>
+                    <a href="#contact" class="inline-block bg-accent hover:bg-teal-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+                        Agende Sua Sessão
+                    </a>
+                </div>
+
+                <!-- Imagem (Ajustada para o Estilo da Foto) -->
+                <div class="md:w-1/2 order-1 md:order-2 flex justify-center">
+                    <img 
+                        src="img/fotolo.jpeg" 
+                        alt="Foto profissional de Lorrayne Mendes dos Reis, Psicóloga"
+                        onerror="this.onerror=null; this.src='img/fotolo.jpeg';"
+                        class="w-full max-w-xs sm:max-w-sm h-auto rounded-xl shadow-2xl object-cover border-4 border-white"
+                        style="aspect-ratio: 4/5;"
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção SOBRE MIM e FORMAÇÃO -->
+        <section id="about" class="py-16 sm:py-24 bg-white rounded-lg shadow-lg mb-20 px-6 sm:px-12 section-fade">
+            <h2 class="text-4xl font-bold text-center mb-10 accent-color title-animate">
+                Minha Trajetória
+            </h2>
+            <div class="max-w-4xl mx-auto text-gray-700 space-y-8 text-lg leading-relaxed">
+                
+                <!-- Quem Sou Eu -->
+                <div class="pb-4 border-b border-gray-200">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900">Quem Sou Eu</h3>
+                    <p>
+                        Olá, eu sou a Lorrayne Reis. Minha paixão por entender o comportamento humano não nasceu apenas nos livros, mas na observação atenta das dinâmicas da vida real — seja em um ambiente corporativo ou em uma equipe se organizando em um jogo online. Sou psicóloga e acredito firmemente que o caminho para uma vida com mais significado começa quando reconhecemos e honramos nossos valores mais profundos. Meu trabalho é ser uma parceira nesta jornada de autoconhecimento e mudança positiva.
+                    </p>
+                </div>
+                
+                <!-- Minha Jornada -->
+                <div class="pb-4 border-b border-gray-200">
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900">Minha Jornada</h3>
+                    <p>
+                        Minha trajetória profissional começou no mundo corporativo, onde, por mais de 10 anos, atuei na área de RH. Essa foi minha grande escola prática sobre gestão de conflitos, saúde emocional e a importância de um ambiente seguro para que as pessoas possam prosperar. Essa bagagem me deu uma visão única que hoje aplico na clínica.
+                    </p>
+                    <p>
+                        Além disso, me especializei no uso terapêutico da cannabis, uma ferramenta poderosa e baseada em ciência para auxiliar no tratamento de condições como ansiedade, depressão e burnout. Meu foco é sempre o mesmo: usar o conhecimento para promover bem-estar, qualidade de vida e devolver a autonomia aos meus pacientes.
+                    </p>
+                </div>
+
+                <!-- Formação -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-900">Formação</h3>
+                    <ul class="list-none space-y-2 pl-0 text-gray-700">
+                        <li class="flex items-start">
+                            <span class="accent-color mr-2">&#10003;</span> Bacharel em Psicologia | PUC Minas, 2021
+                        </li>
+                        <li class="flex items-start">
+                             <span class="accent-color mr-2">&#10003;</span> Pós-graduação em Neuropsicologia | 2022
+                        </li>
+                        <li class="flex items-start">
+                             <span class="accent-color mr-2">&#10003;</span> Pós-graduação em Psicologia Organizacional | 2023
+                        </li>
+                        <li class="flex items-start">
+                             <span class="accent-color mr-2">&#10003;</span> Certificado em Uso Terapêutico da Cannabis | UNIFESP
+                        </li>
+                        <li class="flex items-start">
+                             <span class="accent-color mr-2">&#10003;</span> Pós-graduação em Cannabis Medicinal | FACUMINAS
+                        </li>
+                        <li class="flex items-start">
+                             <span class="accent-color mr-2">&#10003;</span> Pós-graduação em Desenvolvimento de Liderança | PUCMINAS
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Seção Visual - Momentos Especiais -->
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                    <h3 class="text-2xl font-semibold mb-6 text-gray-900 text-center">Momentos Especiais</h3>
+                    <div class="flex justify-center">
+                        <div class="max-w-md">
+                            <img src="img/formatura.png" alt="Formatura de Lorrayne em Psicologia" 
+                                 class="w-full h-auto rounded-lg shadow-lg object-cover"
+                                 onerror="this.style.display='none'">
+                            <p class="text-center text-gray-600 mt-4 italic">Formatura em Psicologia - PUC Minas, 2021</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- Seção SERVIÇOS/SKILLS (Como Posso Te Ajudar) -->
+        <section id="skills" class="py-16 sm:py-24 section-fade">
+            <h2 class="text-4xl font-bold text-center mb-12 accent-color title-animate">
+                Como Posso Te Ajudar
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Cartão 1: Terapia Adultos/Crianças/Adolescentes -->
+                <div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 border-t-4 border-accent fade-up" data-delay="0">
+                    <div class="text-3xl accent-color mb-3">
+                         <!-- Ícone para Família/Pessoas -->
+                        &#128106; 
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Terapia para Todas as Idades</h3>
+                    <p class="text-gray-600">Atendimento especializado e adaptado para adultos, crianças e adolescentes, promovendo autoconhecimento e resiliência em cada fase da vida.</p>
+                </div>
+                <!-- Cartão 2: Ansiedade e Estresse -->
+                <div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 border-t-4 border-accent fade-up" data-delay="100">
+                    <div class="text-3xl accent-color mb-3">
+                         <!-- Ícone para Estresse/Crise -->
+                        &#128557;
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Crises de Ansiedade e Gerenciamento de Estresse</h3>
+                    <p class="text-gray-600">Foco em reconhecer gatilhos, desenvolver técnicas práticas de enfrentamento e reestruturar pensamentos para retomar a sensação de calma e controle.</p>
+                </div>
+                <!-- Cartão 3: Uso Terapêutico da Cannabis -->
+                <div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 border-t-4 border-accent fade-up" data-delay="200">
+                    <div class="text-3xl accent-color mb-3">
+                         <!-- Ícone para Especialidade/Saúde -->
+                        &#127817;
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Uso Terapêutico da Cannabis</h3>
+                    <p class="text-gray-600">Especializada em ciência e aplicações para ansiedade, depressão e burnout, focando no conhecimento para promover bem-estar e autonomia.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção PORTFÓLIO (Especialidades Clínicas Adicionais) -->
+        <section id="portfolio" class="py-16 sm:py-24 section-fade">
+            <h2 class="text-4xl font-bold text-center mb-12 accent-color title-animate">
+                Minhas Especialidades Clínicas
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Especialidade 1: Terapia Individual e de Casal -->
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 slide-left" data-delay="0">
+                    <img src="img/terapia_casal.png" alt="Terapia Individual e de Casal" class="w-full h-48 object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/22c55e/ffffff?text=Individual+e+Casal'">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Terapia Individual e de Casal</h3>
+                        <p class="text-gray-600 text-sm">Na terapia individual, o foco é sua jornada pessoal. Para casais, trabalhamos para melhorar a comunicação e resolver conflitos.</p>
+                    </div>
+                </div>
+                
+                <!-- Especialidade 2: Dificuldades nos Relacionamentos -->
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 scale-up" data-delay="100">
+                    <img src="img/casal_ruim.png" alt="Dificuldades nos Relacionamentos" class="w-full h-48 object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/3b82f6/ffffff?text=Relacionamentos'">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Dificuldades nos Relacionamentos</h3>
+                        <p class="text-gray-600 text-sm">Ajudo a identificar padrões interpessoais e desenvolver estratégias para construir relações mais saudáveis com amigos, família e parceiros.</p>
+                    </div>
+                </div>
+                
+                <!-- Especialidade 3: Vícios e Dependências -->
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 slide-right" data-delay="200">
+                    <img src="img/canabis.png" alt="Vícios e Dependências" class="w-full h-48 object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/f59e0b/ffffff?text=Vícios+e+Dependências'">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Cannabis Medicinal</h3>
+                        <p class="text-gray-600 text-sm">A cannabis medicinal tem se mostrado uma aliada importante no cuidado com a saúde mental. Seus compostos, como o CBD e THC, atuam no equilíbrio do sistema nervoso, auxiliando na redução da ansiedade, insônia, depressão e estresse.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                 <a href="#contact" class="inline-block border-2 border-accent text-accent hover:bg-accent hover:text-green-500 font-semibold py-2 px-6 rounded-full transition duration-300">
+                    Ver Abordagem Terapêutica
+                </a>
+            </div>
+        </section>
+
+        <!-- Seção Inspiracional -->
+        <section class="py-16 sm:py-24 bg-gradient-to-r from-teal-50 to-blue-50 section-fade">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/3 order-2 md:order-1">
+                        <img src="img/perfil.png" alt="Lorrayne Reis - Psicóloga" 
+                             class="w-full max-w-sm mx-auto rounded-2xl shadow-xl object-cover"
+                             onerror="this.style.display='none'">
+                    </div>
+                    <div class="md:w-2/3 order-1 md:order-2 text-center md:text-left">
+                        <blockquote class="text-2xl md:text-3xl font-light text-gray-800 italic mb-6 leading-relaxed" style="text-align: left;">
+                            "Acredito que cada pessoa carrega dentro de si a capacidade de transformação. Meu papel é ser uma parceira nesta jornada de autoconhecimento e crescimento.</br>Te motivando a escolher comportamentos fundados em seus valores diante do mundo"
+                        </blockquote>
+                        <div class="text-lg text-gray-600">
+                            <p class="font-semibold accent-color">— Lorrayne Mendes dos Reis</p>
+                            <p class="text-sm">Psicóloga Clínica CRP 04/70222</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção CONTATO -->
+        <section id="contact" class="py-16 sm:py-24 bg-white rounded-lg shadow-lg px-6 sm:px-12 section-fade">
+            <h2 class="text-4xl font-bold text-center mb-10 accent-color title-animate">
+                Vamos Conversar?
+            </h2>
+            <div class="max-w-xl mx-auto">
+                <p class="text-center text-gray-600 mb-8">
+                    Dar o primeiro passo pode gerar um frio na barriga, e está tudo bem. Se você sente que é o momento de cuidar de si, de entender suas emoções e construir uma vida mais leve, me envie uma mensagem. Estou aqui para te ouvir.
+                </p>
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent p-3 border" placeholder="Seu Nome Completo">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Telefone</label>
+                        <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent p-3 border" placeholder="(XX) XXXXX-XXXX">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700">Mensagem</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-accent focus:ring-accent p-3 border" placeholder="Conte um pouco sobre o que você gostaria de trabalhar na terapia..."></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button type="submit" class="flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-accent hover:bg-teal-700 transition duration-300 transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                            </svg>
+                            Enviar Email
+                        </button>
+                        <a href="https://wa.me/5531994010672?text=Olá,%20Lorrayne!%20Tenho%20interesse%20em%20agendar%20uma%20consulta%20psicológica.%20Podemos%20conversar?" target="_blank" class="flex justify-center items-center py-3 px-4 border border-accent text-accent hover:bg-accent hover:text-white rounded-md shadow-sm text-sm font-medium transition duration-300 transform hover:scale-[1.01] focus:outline-none">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.520-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.568-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.451 3.488"/>
+                            </svg>
+                            WhatsApp
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Igor Fialho Costa. Todos os direitos reservados.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://wa.me/5531994010672?text=Olá,%20Lorrayne!%20Tenho%20interesse%20em%20agendar%20uma%20consulta%20psicológica." target="_blank" class="text-gray-400 hover:text-accent transition duration-150 flex items-center">
+                    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.568-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.451 3.488"/>
+                    </svg>
+                    WhatsApp
+                </a>
+                <a href="https://www.linkedin.com/in/lorraynemendesreis/" class="text-gray-400 hover:text-accent transition duration-150">LinkedIn</a>
+                <a href="https://www.instagram.com/psilorraynereis/" class="text-gray-400 hover:text-accent transition duration-150">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variáveis globais para controle do loading
+        let loadingComplete = false;
+        let contentReady = false;
+
+        // Função principal de entrada do site
+        function initSiteEntrance() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const revealCurtain = document.getElementById('revealCurtain');
+            const body = document.querySelector('body');
+            const hero = document.querySelector('.hero-entrance');
+
+            // Simula tempo de carregamento (pode ser conectado a carregamento real de recursos)
+            setTimeout(() => {
+                loadingComplete = true;
+                checkAndStartReveal();
+            }, 600); // 0.6 segundos de loading
+
+            // Função para verificar se pode iniciar a revelação
+            function checkAndStartReveal() {
+                if (loadingComplete && contentReady) {
+                    startRevealSequence();
+                }
+            }
+
+            // Sequência de revelação
+            function startRevealSequence() {
+                // 1. Esconde o loading screen
+                loadingScreen.classList.add('hide');
+
+                // 2. Após o loading sumir, inicia a cortina
+                setTimeout(() => {
+                    revealCurtain.classList.add('slide-up');
+                }, 100);
+
+                // 3. Remove a cortina do DOM e mostra o conteúdo
+                setTimeout(() => {
+                    revealCurtain.style.display = 'none';
+                    body.classList.remove('fade-in-body');
+                    body.classList.add('fade-in-complete');
+                }, 400);
+
+                // 4. Anima o hero
+                setTimeout(() => {
+                    hero.classList.add('animate');
+                }, 500);
+
+                // 5. Inicializa todas as outras animações
+                setTimeout(() => {
+                    initScrollAnimations();
+                }, 550);
+            }
+
+            // Marca que o conteúdo está pronto quando a página carregar
+            contentReady = true;
+            checkAndStartReveal();
+        }
+
+        // Intersection Observer para animar elementos quando entram na tela
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        // Função para animar um elemento
+        function animateElement(element) {
+            const delay = parseInt(element.dataset.delay) || 0;
+            
+            setTimeout(() => {
+                element.classList.add('animate');
+            }, delay);
+        }
+
+        // Observer para elementos individuais (cards)
+        const elementObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateElement(entry.target);
+                    elementObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observer para seções inteiras
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    sectionObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Função para inicializar animações de scroll
+        function initScrollAnimations() {
+            // Observar todos os cards animados
+            const animatedCards = document.querySelectorAll('.fade-up, .slide-left, .slide-right, .scale-up');
+            animatedCards.forEach(card => {
+                elementObserver.observe(card);
+            });
+
+            // Observar todos os títulos
+            const animatedTitles = document.querySelectorAll('.title-animate');
+            animatedTitles.forEach(title => {
+                elementObserver.observe(title);
+            });
+
+            // Observar todas as seções
+            const animatedSections = document.querySelectorAll('.section-fade');
+            animatedSections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Manter compatibilidade com animação original dos cards de serviço
+            const legacyCards = document.querySelectorAll('#skills .card-enter');
+            legacyCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('card-enter-active');
+                }, 250 + index * 75);
+            });
+        }
+
+        // Função para adicionar efeitos de hover mais suaves
+        function addHoverEffects() {
+            const cards = document.querySelectorAll('.bg-white');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        }
+
+        // Smooth scroll para links de navegação
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    
+                    // Se for o link para o topo, vai direto para o topo da página
+                    if (href === '#top') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // Para outros links, usa o comportamento padrão
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
+        // Funcionalidade do menu mobile
+        function initMobileMenu() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    // Toggle do menu
+                    mobileMenu.classList.toggle('active');
+                    
+                    // Toggle da animação do hambúrguer
+                    mobileMenuButton.classList.toggle('hamburger-active');
+                    
+                    // Atualiza aria-expanded para acessibilidade
+                    const isExpanded = mobileMenu.classList.contains('active');
+                    mobileMenuButton.setAttribute('aria-expanded', isExpanded.toString());
+                });
+                
+                // Fechar menu ao clicar em um link
+                const mobileLinks = mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        mobileMenuButton.classList.remove('hamburger-active');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    });
+                });
+                
+                // Fechar menu ao clicar fora dele
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.remove('active');
+                        mobileMenuButton.classList.remove('hamburger-active');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        }
+
+        // Inicialização quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', () => {
+            addHoverEffects();
+            initSmoothScroll();
+            initMobileMenu();
+        });
+
+        // Inicialização quando a página estiver totalmente carregada
+        window.addEventListener('load', () => {
+            initSiteEntrance();
+        });
+
+        // Previne flash de conteúdo não estilizado
+        document.documentElement.style.visibility = 'visible';
+
+        // Função para enviar email com dados do formulário
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Captura os dados do formulário
+            const name = document.getElementById('name').value || 'Não informado';
+            const phone = document.getElementById('phone').value || 'Não informado';
+            const message = document.getElementById('message').value || 'Não informado';
+            
+            // Monta o corpo do email
+            const emailBody = `Olá, Lorrayne!
+
+Estou interessado(a) em agendar uma consulta psicológica.
+
+Meus dados:
+Nome: ${name}
+Telefone: ${phone}
+
+
+${message}
+
+Aguardo seu retorno!
+
+Obrigado(a)!`;
+            
+            // Cria o link mailto com os dados
+            const mailtoLink = `mailto:lorrayne.reis@assensus.com.br?subject=Interesse em Consulta Psicológica - ${name}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Abre o cliente de email
+            window.location.href = mailtoLink;
+        }
+
+        // Adiciona o evento ao formulário quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleFormSubmit);
+            }
+        });
+    </script>
+
+</body>
+</html>
