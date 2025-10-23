@@ -3,7 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2025 Lorrayne Mendes dos Reis. Todos os direitos reservados.">
+    <meta name="robots" content="noarchive, nosnippet">
+    <meta http-equiv="X-Frame-Options" content="DENY">
     <title>Lorrayne Mendes dos Reis | Portfólio Profissional</title>
+    
+    <!-- PROTEÇÕES JAVASCRIPT CONTRA INSPEÇÃO DO CÓDIGO -->
+    <script>
+        // Proteção 1: Desabilitar clique direito
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert('⚠️ Conteúdo protegido! Clique direito desabilitado.');
+            return false;
+        });
+
+        // Proteção 2: Desabilitar teclas de desenvolvedor
+        document.addEventListener('keydown', function(e) {
+            // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+            if (e.keyCode === 123 || 
+                (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+                (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
+                (e.ctrlKey && e.keyCode === 85) ||
+                (e.ctrlKey && e.keyCode === 83)) {
+                e.preventDefault();
+                alert('🚫 Ferramentas de desenvolvedor bloqueadas!');
+                return false;
+            }
+        });
+
+        // Proteção 3: Detectar DevTools
+        setInterval(function() {
+            if (window.outerHeight - window.innerHeight > 200 || 
+                window.outerWidth - window.innerWidth > 200) {
+                alert('🔒 DevTools detectado! Redirecionando...');
+                window.location.href = 'about:blank';
+            }
+        }, 1000);
+
+        // Proteção 4: Console warnings
+        setTimeout(function() {
+            console.clear();
+            console.log('%c🚨 ATENÇÃO! 🚨', 'color: red; font-size: 30px; font-weight: bold;');
+            console.log('%cEste código é protegido por direitos autorais.', 'color: red; font-size: 16px;');
+            console.log('%c⚖️ Uso não autorizado é crime.', 'color: orange; font-size: 14px;');
+        }, 1000);
+
+        // Proteção 5: Proteger contra iframe
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
+    </script>
+    
     <!-- Carrega o Tailwind CSS para estilização -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -1066,6 +1116,91 @@ Obrigado(a)!`;
             }
         });
     </script>
+
+    <!-- PROTEÇÕES ADICIONAIS JAVASCRIPT -->
+    <script>
+        // Proteção contra cópia
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            alert('❌ Cópia de conteúdo não autorizada!');
+            return false;
+        });
+
+        // Proteção contra seleção (apenas JavaScript, sem CSS)
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('mousedown', function(e) {
+            if (e.detail > 1) { // Detecta duplo clique para seleção
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Proteção contra arrastar
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Ofuscar console
+        (function() {
+            let originalLog = console.log;
+            console.log = function(...args) {
+                return originalLog.apply(console, ['🔒 Console protegido', ...args]);
+            };
+        })();
+
+        // Limpeza periódica do console
+        setInterval(function() {
+            console.clear();
+            console.log('%c⚠️ Este código é protegido por direitos autorais!', 
+                       'color: red; font-size: 16px; font-weight: bold;');
+        }, 15000);
+
+        // Copyright notice detalhado
+        console.log(`
+        ╔══════════════════════════════════════════════╗
+        ║          🔒 CÓDIGO PROTEGIDO 🔒              ║
+        ║                                              ║
+        ║  © ${new Date().getFullYear()} Lorrayne Mendes dos Reis           ║
+        ║  Todos os direitos reservados.               ║
+        ║                                              ║
+        ║  ⚖️  Este código é protegido por lei.        ║
+        ║  🚫 Reprodução não autorizada é proibida.    ║
+        ║  📧 Contato: lorrayne.reis@assensus.com.br   ║
+        ╚══════════════════════════════════════════════╝
+        `);
+
+        // Marca d'água invisível para rastreamento
+        setTimeout(function() {
+            let watermark = document.createElement('div');
+            watermark.innerHTML = '© Lorrayne Reis - Código Protegido - ' + new Date().toISOString();
+            watermark.style.cssText = `
+                position: fixed;
+                top: -9999px;
+                left: -9999px;
+                opacity: 0;
+                pointer-events: none;
+                z-index: -1;
+                font-size: 1px;
+            `;
+            document.body.appendChild(watermark);
+        }, 3000);
+
+        // Proteção contra print
+        window.addEventListener('beforeprint', function(e) {
+            alert('🖨️ Impressão não autorizada!');
+            e.preventDefault();
+            return false;
+        });
+    </script>
+
+    <!-- Aviso de Copyright -->
+    <!-- © 2025 Lorrayne Mendes dos Reis. Todos os direitos reservados. -->
+    <!-- Este código é propriedade intelectual protegida por lei. -->
 
 </body>
 </html>
